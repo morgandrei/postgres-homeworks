@@ -8,9 +8,24 @@
 -- которые не сняты с продажи (поле discontinued) и которых меньше 25 и которые в категориях Dairy Products и Condiments.
 -- Отсортировать результат по возрастанию количества оставшегося товара.
 
+"""
+SELECT product_name, units_in_stock, suppliers.contact_name, suppliers.phone
+FROM products
+INNER JOIN categories USING(category_id) WHERE category_name = ('Dairy Products', 'Condiments')
+--INNER JOIN suppliers USING(supplier_id)  WHERE discontinued = 0 AND units_in_stock < 25
+
+ORDER BY units_in_stock
+"""
+
+
+
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
-
+SELECT company_name FROM customers
+FULL JOIN orders USING(customer_id) WHERE order_id IS NULL
+ORDER BY company_name
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
+SELECT product_name FROM products
+WHERE product_id IN (SELECT DISTINCT(product_id) FROM order_details WHERE quantity = 10)

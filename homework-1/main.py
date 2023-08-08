@@ -3,13 +3,13 @@ import psycopg2
 import os
 import csv
 
-#password = os.getenv("PASSQL")
+password = os.getenv("PASSQL")
 
 conn = psycopg2.connect(
     host="localhost",
     database="north",
     user="postgres",
-    password="Ki@772"
+    password=password
 )
 try:
     with conn:
